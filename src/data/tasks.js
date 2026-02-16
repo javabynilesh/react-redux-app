@@ -1,4 +1,4 @@
-export const initialTask = [
+const initialTask = [
   {
     id: 1,
     taskTitle: "Appointment with Bob",
@@ -10,3 +10,4 @@ export const initialTask = [
     taskDateTime: "2022-09-04 15:00"
   },
 ];
+export default initialTask;
