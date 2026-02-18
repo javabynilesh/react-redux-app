@@ -7,14 +7,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { toDisplayableDateFormat } from "../../utils/";
 
 function Tasks() {
-  //get state from redux store
-  console.log(useSelector(state => state.tasks));
-  let tasks = useSelector(state => state.tasks);
-
-  //state
+   //state
   let [ taskTitle, setTaskTitle ] = useState("");
   let [ taskDateTime, setTaskDateTime ] = useState("");
   let [ isNewTaskOpen, setIsNewTaskOpen ] = useState(false);
+  let [ search, setSearch ] = useState(""); 
+
+  //get state from redux store
+  console.log(useSelector(state => state.tasks));
+  let tasks = useSelector(state => state.tasks);
+  //let filteredTasks = tasks.filter((task)=> task.taskTitle.toLowerCase().indexOf(search.toLowerCase()) >=0);
+    //or
+  let filteredTasks = tasks.filter((task)=> { return task.taskTitle.toLowerCase().indexOf(search.toLowerCase()) >=0 });
 
   //create dispatch function
   let dispatch = useDispatch();
@@ -100,14 +104,14 @@ function Tasks() {
         </Collapsible>
 
         <div className="search-box">
-          <input type="search" placeholder="Search" />
+          <input type="search" placeholder="Search" value={search} onChange={(event)=> {setSearch(event.target.value); }} />
           <i className="fa fa-search"></i>
         </div>
 
         <div className="content-body">
 
           {/* task starts */}
-          {tasks.map(task => <div className="task" key={task.id}>
+          {filteredTasks.map(task => <div className="task" key={task.id}>
             <div className="task-body">
               <div className="task-title">
                 <i className="fa fa-thumbtack"></i>
